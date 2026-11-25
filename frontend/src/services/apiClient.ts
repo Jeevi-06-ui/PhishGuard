@@ -18,10 +18,17 @@ export class ApiError extends Error {
 }
 
 const RAW_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim() ?? '';
-const REQUEST_TIMEOUT_MS = Number(import.meta.env.VITE_REQUEST_TIMEOUT_MS ?? 12000);
+const REQUEST_TIMEOUT_MS = Number(import.meta.env.VITE_REQUEST_TIMEOUT_MS ?? 45000);
+
+function normalizeApiBaseUrl(raw: string): string {
+  if (!raw) return '';
+  const cleaned = raw.replace(/\/+$/, '');
+  if (cleaned.endsWith('/api/v1')) return cleaned;
+  return `${cleaned}/api/v1`;
+}
 
 export const apiConfig = {
-  baseUrl: RAW_BASE_URL.replace(/\/+$/, ''),
+  baseUrl: normalizeApiBaseUrl(RAW_BASE_URL),
   isConfigured: RAW_BASE_URL.length > 0,
   plannedEndpoint: 'http://localhost:8000/api/v1',
 };

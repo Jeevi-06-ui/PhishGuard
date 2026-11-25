@@ -1,0 +1,127 @@
+{
+  "dataset": {
+    "name": "Academic Malicious URLs + UCI PhiUSIIL Phishing Corpus",
+    "source": "Malicious URLs Benchmark Dataset & UCI Machine Learning Repository (ID 967)",
+    "totalSamples": 58832,
+    "trainingSamples": 47065,
+    "testingSamples": 11767,
+    "featureCount": 30,
+    "phishingRatio": 0.4901
+  },
+  "activeModel": {
+    "name": "Random Forest",
+    "version": "1.1.0",
+    "trainedAt": "2026-11-25T01:31:34.950857+00:00",
+    "accuracy": 0.9083,
+    "precision": 0.937,
+    "recall": 0.8715,
+    "f1Score": 0.9031
+  },
+  "models": [
+    {
+      "modelName": "Random Forest",
+      "accuracy": 0.9083,
+      "precision": 0.937,
+      "recall": 0.8715,
+      "f1Score": 0.9031,
+      "rocAuc": 0.9691,
+      "isProduction": true
+    },
+    {
+      "modelName": "Extra Trees",
+      "accuracy": 0.8469,
+      "precision": 0.9511,
+      "recall": 0.7248,
+      "f1Score": 0.8227,
+      "rocAuc": 0.9517,
+      "isProduction": false
+    },
+    {
+      "modelName": "Gradient Boosting",
+      "accuracy": 0.9013,
+      "precision": 0.9298,
+      "recall": 0.8639,
+      "f1Score": 0.8956,
+      "rocAuc": 0.9644,
+      "isProduction": false
+    },
+    {
+      "modelName": "Logistic Regression",
+      "accuracy": 0.9038,
+      "precision": 0.9172,
+      "recall": 0.8835,
+      "f1Score": 0.9,
+      "rocAuc": 0.9654,
+      "isProduction": false
+    }
+  ],
+  "confusionMatrix": {
+    "truePositive": 5026,
+    "falsePositive": 338,
+    "trueNegative": 5662,
+    "falseNegative": 741
+  },
+  "featureImportance": [
+    {
+      "feature": "char_ngrams_tfidf",
+      "label": "URL Character N-Gram Patterns",
+      "importance": 0.719
+    },
+    {
+      "feature": "path_length",
+      "label": "Path Length",
+      "importance": 0.0257
+    },
+    {
+      "feature": "digit_count",
+      "label": "Numeric Digit Count",
+      "importance": 0.0205
+    },
+    {
+      "feature": "max_token_length",
+      "label": "Longest Lexical Token",
+      "importance": 0.0204
+    },
+    {
+      "feature": "letter_ratio",
+      "label": "Alphabetic Density Ratio",
+      "importance": 0.0176
+    },
+    {
+      "feature": "dot_count",
+      "label": "Dot Count",
+      "importance": 0.0171
+    },
+    {
+      "feature": "digit_ratio",
+      "label": "Digit Density Ratio",
+      "importance": 0.0168
+    },
+    {
+      "feature": "hyphen_count",
+      "label": "Hyphen Count",
+      "importance": 0.0155
+    },
+    {
+      "feature": "suspicious_keyword_count",
+      "label": "Suspicious Token Matches",
+      "importance": 0.0148
+    },
+    {
+      "feature": "hostname_entropy",
+      "label": "Hostname Shannon Entropy",
+      "importance": 0.0135
+    },
+    {
+      "feature": "path_depth",
+      "label": "URL Path Depth",
+      "importance": 0.0129
+    },
+    {
+      "feature": "suspicious_tld",
+      "label": "High-Risk TLD Signal",
+      "importance": 0.0126
+    }
+  ],
+  "supportsFeatureImportance": true
+}

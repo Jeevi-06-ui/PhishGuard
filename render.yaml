@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: phishguard-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: ETH_RPC_URL
+        value: http://127.0.0.1:8545
+      - key: ETH_NETWORK_NAME
+        value: Ethereum Hardhat EVM
+      - key: CORS_ALLOW_VERCEL_PREVIEWS
+        value: "true"
+      - key: CORS_ORIGINS
+        value: http://localhost:5173

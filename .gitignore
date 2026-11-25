@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+blockchain/node_modules/
+
+# Python environments & caches
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# Build outputs
+dist/
+build/
+frontend/dist/
+blockchain/artifacts/
+blockchain/cache/
+blockchain/typechain-types/
+
+# Environment variables & secrets
+.env
+.env.local
+.env.*.local
+frontend/.env
+backend/.env
+blockchain/.env
+
+# Local databases, raw datasets & runtime artifacts
+*.db
+*.sqlite
+*.sqlite3
+*.log
+.DS_Store
+ml/data/*.csv
+ml/data/*.zip
+blockchain/deployments/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo

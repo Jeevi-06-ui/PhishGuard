@@ -9,40 +9,40 @@
     "phishingRatio": 0.4901
   },
   "activeModel": {
-    "name": "Random Forest",
+    "name": "Logistic Regression",
     "version": "1.1.0",
-    "trainedAt": "2026-11-25T01:31:34.950857+00:00",
-    "accuracy": 0.9083,
-    "precision": 0.937,
-    "recall": 0.8715,
-    "f1Score": 0.9031
+    "trainedAt": "2026-11-25T04:34:44.908809+00:00",
+    "accuracy": 0.9038,
+    "precision": 0.9172,
+    "recall": 0.8835,
+    "f1Score": 0.9
   },
   "models": [
     {
       "modelName": "Random Forest",
-      "accuracy": 0.9083,
+      "accuracy": 0.8967,
       "precision": 0.937,
-      "recall": 0.8715,
-      "f1Score": 0.9031,
-      "rocAuc": 0.9691,
-      "isProduction": true
+      "recall": 0.846,
+      "f1Score": 0.8892,
+      "rocAuc": 0.9626,
+      "isProduction": false
     },
     {
       "modelName": "Extra Trees",
-      "accuracy": 0.8469,
-      "precision": 0.9511,
-      "recall": 0.7248,
-      "f1Score": 0.8227,
-      "rocAuc": 0.9517,
+      "accuracy": 0.8149,
+      "precision": 0.9494,
+      "recall": 0.6574,
+      "f1Score": 0.7768,
+      "rocAuc": 0.9396,
       "isProduction": false
     },
     {
       "modelName": "Gradient Boosting",
-      "accuracy": 0.9013,
-      "precision": 0.9298,
-      "recall": 0.8639,
-      "f1Score": 0.8956,
-      "rocAuc": 0.9644,
+      "accuracy": 0.8922,
+      "precision": 0.9251,
+      "recall": 0.8486,
+      "f1Score": 0.8852,
+      "rocAuc": 0.959,
       "isProduction": false
     },
     {
@@ -52,75 +52,75 @@
       "recall": 0.8835,
       "f1Score": 0.9,
       "rocAuc": 0.9654,
-      "isProduction": false
+      "isProduction": true
     }
   ],
   "confusionMatrix": {
-    "truePositive": 5026,
-    "falsePositive": 338,
-    "trueNegative": 5662,
-    "falseNegative": 741
+    "truePositive": 5095,
+    "falsePositive": 460,
+    "trueNegative": 5540,
+    "falseNegative": 672
   },
   "featureImportance": [
     {
       "feature": "char_ngrams_tfidf",
       "label": "URL Character N-Gram Patterns",
-      "importance": 0.719
+      "importance": 0.9947
     },
     {
-      "feature": "path_length",
-      "label": "Path Length",
-      "importance": 0.0257
-    },
-    {
-      "feature": "digit_count",
-      "label": "Numeric Digit Count",
-      "importance": 0.0205
-    },
-    {
-      "feature": "max_token_length",
-      "label": "Longest Lexical Token",
-      "importance": 0.0204
-    },
-    {
-      "feature": "letter_ratio",
-      "label": "Alphabetic Density Ratio",
-      "importance": 0.0176
-    },
-    {
-      "feature": "dot_count",
-      "label": "Dot Count",
-      "importance": 0.0171
-    },
-    {
-      "feature": "digit_ratio",
-      "label": "Digit Density Ratio",
-      "importance": 0.0168
-    },
-    {
-      "feature": "hyphen_count",
-      "label": "Hyphen Count",
-      "importance": 0.0155
+      "feature": "query_length",
+      "label": "Query String Length",
+      "importance": 0.0005
     },
     {
       "feature": "suspicious_keyword_count",
       "label": "Suspicious Token Matches",
-      "importance": 0.0148
+      "importance": 0.0004
     },
     {
-      "feature": "hostname_entropy",
-      "label": "Hostname Shannon Entropy",
-      "importance": 0.0135
-    },
-    {
-      "feature": "path_depth",
-      "label": "URL Path Depth",
-      "importance": 0.0129
+      "feature": "digit_count",
+      "label": "Numeric Digit Count",
+      "importance": 0.0003
     },
     {
       "feature": "suspicious_tld",
       "label": "High-Risk TLD Signal",
-      "importance": 0.0126
+      "importance": 0.0003
+    },
+    {
+      "feature": "body_length",
+      "label": "Host + Path Length",
+      "importance": 0.0003
+    },
+    {
+      "feature": "hostname_length",
+      "label": "Hostname Length",
+      "importance": 0.0003
+    },
+    {
+      "feature": "hyphen_count",
+      "label": "Hyphen Count",
+      "importance": 0.0003
+    },
+    {
+      "feature": "trusted_tld",
+      "label": "Restricted Academic/Gov TLD",
+      "importance": 0.0003
+    },
+    {
+      "feature": "max_token_length",
+      "label": "Longest Lexical Token",
+      "importance": 0.0003
+    },
+    {
+      "feature": "has_ip_address",
+      "label": "Raw IP Host Literal",
+      "importance": 0.0002
+    },
+    {
+      "feature": "path_depth",
+      "label": "URL Path Depth",
+      "importance": 0.0002
     }
   ],
   "supportsFeatureImportance": true

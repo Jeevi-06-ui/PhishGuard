@@ -133,8 +133,8 @@ def train_and_evaluate(root_dir: Path | None = None) -> dict[str, Any]:
                 (
                     "clf",
                     RandomForestClassifier(
-                        n_estimators=160,
-                        max_depth=28,
+                        n_estimators=80,
+                        max_depth=22,
                         min_samples_leaf=2,
                         random_state=RANDOM_STATE,
                         n_jobs=-1,
@@ -148,8 +148,8 @@ def train_and_evaluate(root_dir: Path | None = None) -> dict[str, Any]:
                 (
                     "clf",
                     ExtraTreesClassifier(
-                        n_estimators=160,
-                        max_depth=28,
+                        n_estimators=80,
+                        max_depth=22,
                         min_samples_leaf=2,
                         random_state=RANDOM_STATE,
                         n_jobs=-1,
@@ -163,8 +163,8 @@ def train_and_evaluate(root_dir: Path | None = None) -> dict[str, Any]:
                 (
                     "clf",
                     GradientBoostingClassifier(
-                        n_estimators=140,
-                        learning_rate=0.08,
+                        n_estimators=80,
+                        learning_rate=0.1,
                         max_depth=4,
                         random_state=RANDOM_STATE,
                     ),
@@ -228,13 +228,20 @@ def train_and_evaluate(root_dir: Path | None = None) -> dict[str, Any]:
     prep_step: ColumnTransformer = best_pipeline.named_steps["prep"]
 
     feature_importance: list[dict[str, Any]] = []
-    supports_fi = hasattr(clf_step, "feature_importances_")
-    if supports_fi:
+    raw_importances = None
+    if hasattr(clf_step, "feature_importances_"):
+        raw_importances = clf_step.feature_importances_
+    elif hasattr(clf_step, "coef_"):
+        abs_coef = np.abs(clf_step.coef_[0])
+        total_coef = float(np.sum(abs_coef)) or 1.0
+        raw_importances = abs_coef / total_coef
+
+    supports_fi = raw_importances is not None
+    if raw_importances is not None:
         all_names = prep_step.get_feature_names_out()
-        importances = clf_step.feature_importances_
         lexical_scores: list[tuple[str, str, float]] = []
         tfidf_total = 0.0
-        for feat_name, score in zip(all_names, importances):
+        for feat_name, score in zip(all_names, raw_importances):
             if str(feat_name).startswith("lexical__"):
                 raw_col = str(feat_name).removeprefix("lexical__")
                 lexical_scores.append(

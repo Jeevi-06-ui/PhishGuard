@@ -1,78 +1,78 @@
 # PhishGuard
 
-**Intelligent Phishing URL Detection Using Machine Learning and Blockchain**
+**Intelligent Phishing Detection and Blockchain-Based Threat Verification System**
 
-> *Detect intelligently. Verify securely. Browse confidently.*
+> *Detect intelligently. Verify securely. Browse confidently.*  
+> Your intelligent defense against digital deception.
 
-PhishGuard is a full-stack academic cybersecurity web application that analyzes suspicious URLs using trained Scikit-learn machine learning classifiers and anchors cryptographic SHA-256 verification digests onto an Ethereum smart contract for tamper-evident auditability.
-
----
-
-## Architecture Overview
-
-| Layer | Technology | Directory |
-| :--- | :--- | :--- |
-| **Frontend** | React 18, TypeScript, Vite, Tailwind CSS, Framer Motion, Lucide React, Recharts | [`frontend/`](./frontend) |
-| **Backend API** | Python FastAPI, Pydantic, SQLite, Web3.py | [`backend/`](./backend) |
-| **Machine Learning** | Scikit-learn, Pandas, NumPy, Joblib | [`ml/`](./ml) |
-| **Blockchain** | Ethereum, Solidity (`PhishGuardRegistry`), Hardhat | [`blockchain/`](./blockchain) |
-| **Documentation** | Architecture notes & API contracts | [`docs/`](./docs) |
-| **Automation** | Local stack & Render container startup scripts | [`scripts/`](./scripts) |
+PhishGuard is a full-stack cybersecurity platform combining supervised Scikit-learn URL classification, safe non-fetching URL inspection, multi-vector security analysis tools, and an Ethereum smart contract (`PhishGuardRegistry.sol`) for tamper-evident cryptographic audit verification.
 
 ---
 
-## Quick Start (Full Local Stack)
+## Core Modules
 
-### 1. Machine Learning Training (Optional — Pre-trained Artifacts Included)
-```bash
-uv venv .venv --python 3.12
-uv pip install --python .venv/bin/python -r backend/requirements.txt
-PYTHONPATH=. .venv/bin/python -m ml.src.train
-```
-
-### 2. Blockchain Smart Contract (Hardhat)
-```bash
-cd blockchain
-npm install
-npx hardhat compile
-npx hardhat test
-npx hardhat node --hostname 127.0.0.1 --port 8545
-# In another terminal:
-npx hardhat run scripts/deploy.ts --network localhost
-```
-
-### 3. FastAPI Backend
-```bash
-cd /path/to/PhishGuard
-PYTHONPATH=. .venv/bin/uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
-```
-
-### 4. React Frontend
-```bash
-cd frontend
-cp .env.example .env
-npm install
-npm run dev
-```
-
-Or launch the complete Hardhat + FastAPI + Vite stack at once:
-```bash
-./scripts/start_local.sh
-```
+- **URL, Bulk, Email & QR Scanners:** Inspect individual URLs (`POST /api/scans/url`), upload `.txt`/`.csv` batches (`POST /api/scans/bulk`), analyze email snippets (`POST /api/scans/email`), or decode QR codes in-browser via `@zxing/browser` without executing or fetching remote links.
+- **Machine Learning Lab (`/ml-analytics`):** Real Scikit-learn Logistic Regression and Random Forest classifiers trained on a domain-grouped split of the **UCI PhiUSIIL Phishing URL Dataset**, complete with validation selection, ROC curves, confusion matrices, and reproducible Experiments 1–10.
+- **Blockchain Explorer & Integrity Verifier (`/blockchain`, `/verification`):** Anchors canonical SHA-256 `recordHash` digests via Web3.py to `PhishGuardRegistry.sol` on Hardhat (`8545`) and lets analysts verify or simulate off-chain tampering detection (`verifyRecordHash`).
+- **Governance & Education:** Role-based Admin Console (`/admin`), Community Threat Intelligence (`/threat-intelligence`), Printable & CSV/JSON Security Reports (`/reports`), Client-Side `zxcvbn` Password Strength Checker (`/password-checker`), 15-Question Phishing Awareness Quiz (`/awareness`), Notifications (`/notifications`), and Profile/Settings (`/settings`).
 
 ---
 
-## Deployment
+## Documentation Index
 
-### Frontend on Vercel
-- Root Directory: `frontend`
-- Build Command: `npm run build`
-- Output Directory: `dist`
-- SPA Routing Config: [`frontend/vercel.json`](./frontend/vercel.json)
-- Environment Variable: `VITE_API_BASE_URL=https://<your-render-service>.onrender.com/api/v1`
+- [`docs/SRS_AND_ARCHITECTURE.md`](./docs/SRS_AND_ARCHITECTURE.md) — Abstract, SRS, Architecture, DFD, Use Case, Sequence & ER Mermaid Diagrams
+- [`docs/API_AND_DATABASE.md`](./docs/API_AND_DATABASE.md) — Endpoint Catalog, SQLite ORM Schema & Security Controls
+- [`docs/ML_AND_BLOCKCHAIN.md`](./docs/ML_AND_BLOCKCHAIN.md) — Dataset Debiasing, Experiments 1–10 & Smart Contract Digest Spec
+- [`docs/TESTING_DEMO_AND_VIVA.md`](./docs/TESTING_DEMO_AND_VIVA.md) — Automated Tests, Viva Q&A, IEEE Paper Outline & Walkthrough
 
-### Backend + ML + Hardhat on Render
-- Blueprint: [`render.yaml`](./render.yaml)
-- Container: [`Dockerfile`](./Dockerfile) + [`scripts/start_render.sh`](./scripts/start_render.sh)
-- Health Check Path: `/api/v1/health`
-- Runs Python 3.12 FastAPI, Scikit-learn inference artifacts, SQLite persistence, and an embedded Hardhat Ethereum node (or connects to an external `ETH_RPC_URL` + `PHISHGUARD_CONTRACT_ADDRESS` + `DEPLOYER_PRIVATE_KEY` such as Ethereum Sepolia if configured).
+---
+
+## Setup & Running Locally
+
+### macOS / Linux
+
+1. **Automated Setup (Python 3.12 venv, ML models, Hardhat compile, Vite deps, SQLite init):**
+   ```bash
+   chmod +x scripts/setup.sh scripts/start_local.sh
+   ./scripts/setup.sh
+   ```
+2. **Optional — Provision an Administrator Account:**
+   ```bash
+   PYTHONPATH=. .venv/bin/python -m backend.app.cli create-admin \
+     --email admin@phishguard.local \
+     --name "Security Admin"
+   ```
+3. **Start Full Stack (`Hardhat :8545` + `FastAPI :8000` + `Vite :5173`):**
+   ```bash
+   ./scripts/start_local.sh
+   ```
+
+### Windows (PowerShell)
+
+1. Install Python 3.12+, Node.js 20+, and set up `.venv` + dependencies:
+   ```powershell
+   python -m venv .venv
+   .\.venv\Scripts\pip.exe install -r backend\requirements.txt
+   cd blockchain; npm install; npx hardhat compile; cd ..
+   cd frontend; npm install; cd ..
+   $env:PYTHONPATH="."; .\.venv\Scripts\python.exe -m ml.train
+   .\.venv\Scripts\python.exe -m ml.evaluate
+   ```
+2. **Start Full Stack:**
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File scripts\start_local.ps1
+   ```
+
+### Running Tests
+
+```bash
+# 1. Smart Contract Tests
+cd blockchain && npx hardhat test
+
+# 2. Backend Pytest Suite
+cd .. && PYTHONPATH=. .venv/bin/pytest backend/tests/test_api.py -v
+
+# 3. Frontend Typecheck, Vitest & Production Build
+cd frontend && npm run typecheck && npm run test && npm run build
+```
+# phishgaurd
